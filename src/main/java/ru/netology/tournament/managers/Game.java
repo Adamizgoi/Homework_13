@@ -7,18 +7,16 @@ import ru.netology.tournament.exceptions.NegativeIdException;
 import ru.netology.tournament.exceptions.NegativeNameException;
 import ru.netology.tournament.exceptions.NotRegisteredException;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.HashMap;
 
 @Getter
 public class Game {
-    private List<Player> players = new ArrayList<>();
+    private HashMap<String, Player> players = new HashMap();
 
     public void register(Player newPlayer) {
         // метод регистрации игрока
         if (registerCheck(newPlayer)) {
-            players.add(newPlayer);
+            players.put(newPlayer.getName(), newPlayer);
         }
     }
 
@@ -31,13 +29,13 @@ public class Game {
         if (somePlayer.getStrength() < 0) {
             return false;
         }
-        for (Player randomPlayer : players) {
+        for (Player randomPlayer : players.values()) {
             if (somePlayer.getId() == randomPlayer.getId()) {
                 throw new NegativeIdException(
                         "Такой ID уже используется: " + somePlayer.getId()
                 );
             }
-            if (somePlayer.getName() == randomPlayer.getName()) {
+            if (somePlayer.getName().equals(randomPlayer.getName())) {
                 throw new NegativeNameException(
                         "Такое имя пользователя уже используется: " + somePlayer.getName()
                 );
@@ -65,11 +63,11 @@ public class Game {
         Player player1 = null;
         Player player2 = null;
 
-        for (Player randomPlayer : players) {
-            if (randomPlayer.getName() == playerName1) {
+        for (Player randomPlayer : players.values()) {
+            if (randomPlayer.getName().equals(playerName1)) {
                 player1 = randomPlayer;
             }
-            if (randomPlayer.getName() == playerName2) {
+            if (randomPlayer.getName().equals(playerName2)) {
                 player2 = randomPlayer;
             }
         }

@@ -7,12 +7,11 @@ import ru.netology.tournament.exceptions.NegativeIdException;
 import ru.netology.tournament.exceptions.NegativeNameException;
 import ru.netology.tournament.exceptions.NotRegisteredException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class GameTest {
     Game gameManager = new Game();
-    List<Player> testPlayers = new ArrayList<>();
+    HashMap<String, Player> testPlayers = new HashMap<>();
 
     Player player1 = new Player(1, "moon1", 1000);
     Player player2 = new Player(2, "FALLenAngel_201", 999);
@@ -100,14 +99,15 @@ public class GameTest {
     }
 
     @Test
-    public void shouldNotRegisterPlayerWithWithStrengthLessZero() {
+    public void shouldNotRegisterPlayerWithStrengthLessZero() {
         gameManager.register(player1);
         gameManager.register(player8error);
-        testPlayers.add(player1);
 
-        List<Player> expected = testPlayers;
-        List<Player> actual = gameManager.getPlayers();
+        testPlayers.put(player1.getName(), player1);
 
-        Assertions.assertArrayEquals(expected.toArray(), actual.toArray());
+        HashMap<String, Player> expected = testPlayers;
+        HashMap<String, Player> actual = gameManager.getPlayers();
+
+        Assertions.assertEquals(expected, actual);
     }
 }
