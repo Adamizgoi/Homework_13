@@ -12,7 +12,6 @@ import java.util.Comparator;
 import java.util.List;
 
 @Getter
-// ТУТ НУЖЕН ОЛ АРГС КОНСТРАКТОР??
 public class Game {
     private List<Player> players = new ArrayList<>();
 
